@@ -1,4 +1,4 @@
-name: train_val_test_split
+name: data_split
 conda_env: conda.yml
 
 entry_points:

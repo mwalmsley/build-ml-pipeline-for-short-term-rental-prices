@@ -1,3 +1,31 @@
+
+## Installation errors
+
+environment.yml is Killed - workaround with manual creation and pip 
+protobuf not pinned and is now incompatible
+   pip install protobuf==3.20
+similarly with numpy
+   pip install numpy==1.19.0
+
+To fix this on the remote components (`data_split`) I'm adding them directly to `/src`. I still use `wandb_utils.log_artifact` from the remote repo.
+
+Conda is extremely slow to create the required environment (several minutes per run solving dependencies). 
+Reproducibility is great but I understand the concept already - now I want to solve the project.
+
+manually activate main pipeline env and run with 
+   --no-conda
+or soon
+   --env-manager=local
+
+HParam search
+
+   #modeling.max_tfidf_features to 10, 15 and 30, and the modeling.random_forest.max_features to 0.1, 0.33, 0.5, 0.75, 1.
+
+   mlflow run . \
+   -P steps=train_random_forest \
+   -P hydra_options="modeling.max_tfidf_features=10,15,30 modeling.random_forest.max_features=0.1,0.33,0.5,0.75,1 -m"
+
+
 # Build an ML Pipeline for Short-Term Rental Prices in NYC
 You are working for a property management company renting rooms and properties for short periods of 
 time on various rental platforms. You need to estimate the typical price for a given property based 
